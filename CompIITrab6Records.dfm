@@ -3,8 +3,8 @@ object fmRecordes: TfmRecordes
   Top = 115
   BorderStyle = bsSingle
   Caption = 'Best Times'
-  ClientHeight = 196
-  ClientWidth = 289
+  ClientHeight = 195
+  ClientWidth = 285
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

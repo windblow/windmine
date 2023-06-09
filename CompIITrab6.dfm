@@ -59,9 +59,9 @@ object fmPrincipal: TfmPrincipal
   end
   object mmPrincipal: TMainMenu
     object Arquivo1: TMenuItem
-      Caption = '&Arquivo'
+      Caption = '&File'
       object NovoJogo1: TMenuItem
-        Caption = '&Novo Jogo'
+        Caption = '&New game'
         ShortCut = 113
         OnClick = NovoJogo1Click
       end
@@ -97,7 +97,7 @@ object fmPrincipal: TfmPrincipal
         GroupIndex = 1
       end
       object MelhoresTempos1: TMenuItem
-        Caption = 'Best Times'
+        Caption = 'Best &Times'
         GroupIndex = 2
         OnClick = MelhoresTempos1Click
       end
@@ -111,15 +111,15 @@ object fmPrincipal: TfmPrincipal
         GroupIndex = 3
       end
       object Sair1: TMenuItem
-        Caption = '&Sair'
+        Caption = 'E&xit'
         GroupIndex = 4
         OnClick = Sair1Click
       end
     end
     object Ajuda1: TMenuItem
-      Caption = 'A&juda'
+      Caption = '&Help'
       object Sobre1: TMenuItem
-        Caption = 'Sob&re'
+        Caption = 'A&bout'
         OnClick = Sobre1Click
       end
     end

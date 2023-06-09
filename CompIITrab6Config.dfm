@@ -3,8 +3,8 @@ object fmConfig: TfmConfig
   Top = 146
   BorderStyle = bsSingle
   Caption = 'Customize...'
-  ClientHeight = 196
-  ClientWidth = 265
+  ClientHeight = 195
+  ClientWidth = 261
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

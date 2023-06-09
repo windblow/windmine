@@ -3,8 +3,8 @@ object fmSobre: TfmSobre
   Top = 230
   BorderStyle = bsSingle
   Caption = 'Windmine v. 1.00'
-  ClientHeight = 174
-  ClientWidth = 316
+  ClientHeight = 173
+  ClientWidth = 312
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

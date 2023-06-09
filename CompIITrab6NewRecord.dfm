@@ -3,8 +3,8 @@ object fmNewRecord: TfmNewRecord
   Top = 198
   BorderStyle = bsSingle
   Caption = 'New record!'
-  ClientHeight = 115
-  ClientWidth = 263
+  ClientHeight = 114
+  ClientWidth = 259
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

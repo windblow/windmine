@@ -22,12 +22,18 @@ const
         ErroArqSalva = 'Error saving to config file!';
 
 type
+        TGameType = string[5];
+
+type
+        TPlayerName = string[15];
+
+type
         TConfigEntry = record
                 PersBombs, PersCols, PersLins: integer;
                 // holds the size of custom mode board
                 QuestOn: boolean; // whether or not to use Question Marks
-                GameType: string[5]; // Game mode description String
-                MTIniciNome, MTInterNome, MTExperNome: string[15];
+                GameType: TGameType; // Game mode description String
+                MTIniciNome, MTInterNome, MTExperNome: TPlayerName;
                 // holds the names of best players
                 MTIniciTempo, MTInterTempo, MTExperTempo: longint;
                 // holds the best times
@@ -91,17 +97,17 @@ type
                 FColunas: integer;
                 FLinhas: integer;
                 FQuantasBombas: integer;
-                FRecordExperNome: string;
+                FRecordExperNome: TPlayerName;
                 FRecordExperTempo: longint;
-                FRecordIniciNome: string;
+                FRecordIniciNome: TPlayerName;
                 FRecordIniciTempo: longint;
-                FRecordInterNome: string;
+                FRecordInterNome: TPlayerName;
                 FRecordInterTempo: longint;
-                FTipoJogo: string;
+                FTipoJogo: TGameType;
                 FUsarQuestoes: boolean;
                 procedure AtualizaRecordes;
                 procedure ConfiguraJogo(Bombas, X, Y: integer); overload;
-                procedure ConfiguraJogo(ConfID: string); overload;
+                procedure ConfiguraJogo(ConfID: TGameType); overload;
                 function ConfiguraPadrao: TConfigEntry;
                 procedure CriaCounters;
                 function ModificaConfig(Config: TConfigEntry): boolean;
@@ -112,19 +118,19 @@ type
                 property Linhas: integer read FLinhas write FLinhas;
                 property QuantasBombas: integer read FQuantasBombas
                   write FQuantasBombas;
-                property RecordExperNome: string read FRecordExperNome
+                property RecordExperNome: TPlayerName read FRecordExperNome
                   write FRecordExperNome;
                 property RecordExperTempo: longint read FRecordExperTempo
                   write FRecordExperTempo;
-                property RecordIniciNome: string read FRecordIniciNome
+                property RecordIniciNome: TPlayerName read FRecordIniciNome
                   write FRecordIniciNome;
                 property RecordIniciTempo: longint read FRecordIniciTempo
                   write FRecordIniciTempo;
-                property RecordInterNome: string read FRecordInterNome
+                property RecordInterNome: TPlayerName read FRecordInterNome
                   write FRecordInterNome;
                 property RecordInterTempo: longint read FRecordInterTempo
                   write FRecordInterTempo;
-                property TipoJogo: string read FTipoJogo write FTipoJogo;
+                property TipoJogo: TGameType read FTipoJogo write FTipoJogo;
                 property UsarQuestoes: boolean read FUsarQuestoes
                   write FUsarQuestoes;
         end;
@@ -171,9 +177,9 @@ procedure TfmPrincipal.AtualizaRecordes;
 begin
         with fmRecordes do
         begin
-                lbInicianteNome.Caption := RecordIniciNome;
-                lbIntermediarioNome.Caption := RecordInterNome;
-                lbExperienteNome.Caption := RecordExperNome;
+                lbInicianteNome.Caption := string(RecordIniciNome);
+                lbIntermediarioNome.Caption := string(RecordInterNome);
+                lbExperienteNome.Caption := string(RecordExperNome);
                 lbInicianteTempo.Caption := IntToStr(RecordIniciTempo) + 's';
                 lbIntermediarioTempo.Caption :=
                   IntToStr(RecordInterTempo) + 's';
@@ -243,7 +249,7 @@ begin
                 if ctTimeCounter.Valor < RecordIniciTempo then
                 begin
                         fmNewRecord.ShowModal;
-                        RecordIniciNome := fmNewRecord.edNome.Text;
+                        RecordIniciNome := TPlayerName(fmNewRecord.edNome.Text);
                         if Length(RecordIniciNome) < 15 then
                                 for i := (Length(RecordIniciNome) + 1) to 15 do
                                         RecordIniciNome :=
@@ -257,7 +263,7 @@ begin
                 if ctTimeCounter.Valor < RecordInterTempo then
                 begin
                         fmNewRecord.ShowModal;
-                        RecordInterNome := fmNewRecord.edNome.Text;
+                        RecordInterNome := TPlayerName(fmNewRecord.edNome.Text);
                         if Length(RecordInterNome) < 15 then
                                 for i := (Length(RecordInterNome) + 1) to 15 do
                                         RecordInterNome :=
@@ -270,7 +276,7 @@ begin
                 if ctTimeCounter.Valor < RecordExperTempo then
                 begin
                         fmNewRecord.ShowModal;
-                        RecordExperNome := fmNewRecord.edNome.Text;
+                        RecordExperNome := TPlayerName(fmNewRecord.edNome.Text);
                         if Length(RecordExperNome) < 15 then
                                 for i := (Length(RecordExperNome) + 1) to 15 do
                                         RecordExperNome :=
@@ -291,7 +297,7 @@ begin
         AjustaGrid
 end;
 
-procedure TfmPrincipal.ConfiguraJogo(ConfID: string);
+procedure TfmPrincipal.ConfiguraJogo(ConfID: TGameType);
 { Sets up the game in predefined modes }
 begin
         if (ConfID <> 'Inici') and (ConfID <> 'Inter') and (ConfID <> 'Exper')
@@ -614,7 +620,8 @@ begin
                           counts the number of neighboring mines of every cell, and starts the timer }
                         if (FirstClick) then
                         begin
-                                PlantaBombas(Col, Row); // Plant the mines on random cells excluding the current one, so the first clicked cell is never a mine
+                                PlantaBombas(Col, Row);
+                                // Plant the mines on random cells excluding the current one, so the first clicked cell is never a mine
                                 ctTimeCounter.Valor := 1;
                                 TimeCtRefresh;
                                 tmTimer.Enabled := true;
